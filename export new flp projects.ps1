@@ -18,13 +18,16 @@ foreach($file in $files) {
 
     # get project export time
     $projectWritedate = $file.LastWriteTime
-
+	    
     # build mp3 file name
     $mp3FilePath = $WorkingDirectory+"\"+$flpProjectName+".mp3"
 
     # get mp3 export time
     $mp3File = Get-ItemProperty -Path $mp3FilePath -Name LastWriteTime -ErrorAction SilentlyContinue
-    $mp3Writedate = $mp3File.LastWriteTime
+
+    try{$mp3Writedate = ($mp3File.LastWriteTime).AddMinutes(20)} 
+    catch{}
+    
     
     # if wave time less than mp3 -  export
     if($mp3Writedate -le $projectWritedate)
@@ -37,8 +40,8 @@ foreach($file in $files) {
 
         # & $CMD $arg1 $arg2 $arg3 $arg4
         $p = Start-Process $processToExecute -ArgumentList $argumentList  -wait -NoNewWindow -PassThru
-        $p.HasExited
-        $p.ExitCode
+        # $p.HasExited
+        # $p.ExitCode
 
         $newFile = $TempFolder+"\"+$flpProjectName+".mp3"
         Copy-Item $newFile $WorkingDirectory
@@ -50,7 +53,7 @@ foreach($file in $files) {
     {
         $flpProjectName+ " -- Skipping  - FLP file is already up to date"
     }
-
+	
 
 }
 
