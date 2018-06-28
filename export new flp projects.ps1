@@ -1,9 +1,9 @@
 ﻿
-$WorkingDirectory='H:\Program Files (x86)\Image-Line\FL Studio 12\Data\Projects\bdp'
+$WorkingDirectory='H:\Program Files (x86)\Image-Line\FL Studio 20\Data\Projects\bdp'
 
 # for each file in directory
 $files = Get-ChildItem $WorkingDirectory -Filter *.flp 
-$TempFolder = 'H:\Program Files (x86)\Image-Line\FL Studio 12\Data\Projects\bdp\renderTemp'
+$TempFolder = 'H:\Program Files (x86)\Image-Line\FL Studio 20\Data\Projects\bdp\renderTemp'
 $GoogleDriveFolder = 'C:\Users\brian\Google Drive\FL Studio Song Share\SongsByBDP'
 
 # try to create the subdirectory
@@ -40,9 +40,9 @@ foreach($file in $files) {
     {
 		Copy-Item $flpFilePath $TempFolder
         "         Rendering --------------->"+$flpProjectName+" -- Process FLP file"
-        $commandToExecute= '"H:\Program Files (x86)\Image-Line\FL Studio 12\FL64.exe" /R /Emp3 /F"'+$TempFolder+'"'
+        $commandToExecute= '"H:\Program Files (x86)\Image-Line\FL Studio 20\FL64.exe" /R /Emp3 /F"'+$TempFolder+'"'
         $argumentList= '/R /Emp3 /F"'+$TempFolder+'"'
-        $processToExecute= '"H:\Program Files (x86)\Image-Line\FL Studio 12\FL.exe" /R /Emp3 /F"'+$TempFolder+'"' # was fl64
+        $processToExecute= '"H:\Program Files (x86)\Image-Line\FL Studio 20\FL.exe" /R /Emp3 /F"'+$TempFolder+'"' # was fl64
 
         # & $CMD $arg1 $arg2 $arg3 $arg4
         $p = Start-Process $processToExecute -ArgumentList $argumentList  -wait -NoNewWindow -PassThru
@@ -52,10 +52,12 @@ foreach($file in $files) {
         #Copy to work dir
         $newFileTemp = $TempFolder+"\"+$flpProjectName+".mp3"
         Copy-Item $newFileTemp $WorkingDirectory
-        "      --Item Copied from "+$newFile
-        "      to " +$WorkingDirectory+"\n"
-        "--"
+        "      --Item saved to " +$WorkingDirectory+"\n"
+        "      --"
         ""
+        "      :-p"
+        ""
+        "      :-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:-p:"
 
         #Copy to Google Drive
         $newFileGoogleDrive = $GoogleDriveFolder+"\"+$flpProjectName+".mp3"
